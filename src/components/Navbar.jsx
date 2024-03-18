@@ -19,12 +19,12 @@ const Navbar = () => {
     <div>
       {user ? (
         <>
-          <NavLink to="/">Inicio</NavLink>
+          <NavLink to="/">Inicio</NavLink> 
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
         <>
-          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/login">Login</NavLink>||
           <NavLink to="/register">Register</NavLink>
         </>
       )}
