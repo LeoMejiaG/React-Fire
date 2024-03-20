@@ -6,6 +6,8 @@ import { erroresFirebase } from "../utils/erroresFirebase";
 import FormError from "../components/FormError";
 import formValidate from "../utils/formValidate";
 import FormInput from "../components/FormInput";
+import Title from "../components/Title";
+import Button from "../components/Button";
 
 const Register = () => {
   const navegate = useNavigate();
@@ -27,50 +29,53 @@ const Register = () => {
       navegate("/");
     } catch (error) {
       console.log(error.code);
-      setError("firebase", {
-        message: erroresFirebase(error.code),
-      });
+      const { code, message } = erroresFirebase(error.code);
+      setError(code, { message });
     }
   };
 
   return (
     <>
-      <h1>Register</h1>
-      <FormError error={errors.firebase} />
+      <Title text="Registro" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           type="email"
-          placeholder="Ingresa tu email"
+          placeholder="Ingresa tu e-mail"
           {...register("email", {
             required,
             pattern: patternEmail,
           })}
+          label="Ingresa tu e-mail"
+          error={errors.email}
         >
-        <FormError error={errors.email} />
+          <FormError error={errors.email} />
         </FormInput>
 
         <FormInput
           type="password"
-          placeholder="Ingresa tu password"
+          placeholder="Ingresa tu contraseña"
           {...register("password", {
             minLength,
             validate: validateTrim,
           })}
+          label="Ingresa tu contraseña"
+          error={errors.password}
         >
-        <FormError error={errors.password} />
+          <FormError error={errors.password} />
         </FormInput>
 
         <FormInput
           type="password"
-          placeholder="Confirma tu password"
+          placeholder="Confirma tu constraseña"
           {...register("repassword", {
-            validate: validatePassword(getValues),
+            validate: validatePassword(getValues("password")),
           })}
+          label="Confirma tu contraseña"
+          error={errors.repassword}
         >
-        <FormError error={errors.repassword} />
+          <FormError error={errors.repassword} />
         </FormInput>
-
-        <button type="submit">Register</button>
+        <Button text="Registrarse" type="submit" />
       </form>
     </>
   );

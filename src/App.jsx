@@ -6,13 +6,13 @@ import Navbar from "./components/Navbar";
 import RequireAuth from "./components/RequiereAuth";
 import { useContext } from "react";
 import { UserContext } from "./context/UserProvider";
+import LayaoutHome from "./components/LayoutHome";
 
 const App = () => {
-
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
 
   if (user === false) {
-    return <p>Cargando...</p>
+    return <p>Cargando...</p>;
   }
 
   return (
@@ -28,8 +28,10 @@ const App = () => {
             </RequireAuth>
           }
         ></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/register" element={<Register />}></Route>
+        <Route path="/" element={<LayaoutHome />}> 
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+        </Route>
       </Routes>
     </>
   );
